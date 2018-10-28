@@ -21,8 +21,6 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
     depends_on:
       - logstash
 
@@ -43,8 +41,6 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
 
   influxdb:
     image: influxdb:latest
@@ -61,8 +57,6 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
     depends_on:
       - logstash
 
@@ -80,8 +74,6 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
     depends_on:
       - logstash
 
@@ -98,8 +90,6 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
     depends_on:
       - logstash
 
