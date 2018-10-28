@@ -129,6 +129,6 @@ services:
 #      - logstash
 
 networks:
-
-  plei:
-    driver: bridge
+  bridge:
+    external:
+      name: plei
