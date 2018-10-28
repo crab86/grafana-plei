@@ -1,4 +1,8 @@
 version: '3'
+
+networks:
+  plei:
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
@@ -23,6 +27,8 @@ services:
         tag: "{{.Name}}/{{.ID}}"
     depends_on:
       - logstash
+    networks:
+      - plei
 
   logstash:
     image: docker.elastic.co/logstash/logstash:6.4.0
@@ -41,6 +47,9 @@ services:
         syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+
 
   influxdb:
     image: influxdb:latest
@@ -59,6 +68,8 @@ services:
         tag: "{{.Name}}/{{.ID}}"
     depends_on:
       - logstash
+    networks:
+      - plei
 
   grafana:
     image: grafana/grafana:latest
@@ -76,6 +87,8 @@ services:
         tag: "{{.Name}}/{{.ID}}"
     depends_on:
       - logstash
+    networks:
+      - plei
 
   prometheus:
     image: prom/prometheus:latest
@@ -92,7 +105,9 @@ services:
         tag: "{{.Name}}/{{.ID}}"
     depends_on:
       - logstash
-
+    networks:
+      - plei
+      
 #  cadvisor:
 #    image: google/cadvisor:latest
 #    container_name: cadvisor
@@ -117,8 +132,3 @@ services:
 #      - plei
 #    depends_on:
 #      - logstash
-
-networks:
-  default:
-    # Use a custom driver
-    driver: overlay
