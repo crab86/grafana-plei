@@ -1,0 +1,134 @@
+version: '2'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    container_name: elasticsearch
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - "9200:9200"
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+    depends_on:
+      - logstash
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.4.0
+    container_name: logstash
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5140:5140/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+
+  influxdb:
+    image: influxdb:latest
+    container_name: influxdb
+    volumes:
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+    ports:
+      - "8086:8086"
+#    environment:
+#      - INFLUXDB_DB=cadvisor
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+    depends_on:
+      - logstash
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    volumes:
+      - ./grafana/config:/etc/grafana
+      - ./grafana/var/lib/grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+    depends_on:
+      - logstash
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
+    networks:
+      - plei
+    depends_on:
+      - logstash
+
+#  cadvisor:
+#    image: google/cadvisor:latest
+#    container_name: cadvisor
+#    volumes:
+#      - /:/rootfs:ro
+#      - /var/run:/var/run:rw
+#      - /sys:/sys:ro
+#      - /var/lib/docker/:/var/lib/docker:ro
+#    command:
+#      - "-storage_driver=influxdb"
+#      - "-storage_driver_host=influxdb:8086"
+#    ports:
+#      - "8080:8080"
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: "udp://127.0.0.1:5140"
+#        syslog-format: "rfc3164"
+#        tag: "{{.Name}}/{{.ID}}"
+#        mode: "non-blocking"
+#    networks:
+#      - plei
+#    depends_on:
+#      - logstash
+
+networks:
+
+  plei:
+    driver: bridge
