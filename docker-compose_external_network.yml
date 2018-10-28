@@ -127,6 +127,3 @@ services:
 #      - plei
 #    depends_on:
 #      - logstash
-
-networks:
-  plei
