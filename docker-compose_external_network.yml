@@ -129,6 +129,4 @@ services:
 #      - logstash
 
 networks:
-  bridge:
-    external:
-      name: plei
+  plei
