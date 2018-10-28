@@ -117,3 +117,8 @@ services:
 #      - plei
 #    depends_on:
 #      - logstash
+
+networks:
+  default:
+    # Use a custom driver
+    driver: overlay
