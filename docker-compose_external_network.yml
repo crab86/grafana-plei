@@ -28,6 +28,7 @@ services:
     depends_on:
       - logstash
     networks:
+      - plei
     deploy:
       mode: global
 
@@ -95,7 +96,7 @@ services:
       - plei
     deploy:
       mode: global
-      
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
