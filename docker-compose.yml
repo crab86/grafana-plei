@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
@@ -65,7 +65,7 @@ services:
       - plei
     depends_on:
       - logstash
-  
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -84,7 +84,7 @@ services:
       - plei
     depends_on:
       - logstash
-  
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
