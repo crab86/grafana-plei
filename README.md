@@ -1,5 +1,5 @@
 # grafana-plei
-Grafana bundled with (P)rometheus, (L)ogstash,(E)lasticsearch & (I)nfluxDB using Docker to play around. Simply start the whole stack with Docker-Compose (docker-compose up).
+Grafana bundled with (P)rometheus, (L)ogstash,(E)lasticsearch & (I)nfluxDB using Docker to play around. Simply start the whole stack with Docker-Compose (docker-compose up). No additinal agents are needed, all the metrics and logs in all dashboards are based up on internal statistics of the used databases and tools itself.
 
 The PLEI-stack is based on the following official Docker images:
 
@@ -40,6 +40,27 @@ Moreover the following Dashboards are also pre-provisioned to Grafana when start
 - [Prometheus  - Prometheus Stats (imported from Datasource)](https://github.com/grafana/grafana/tree/master/public/app/plugins/datasource/prometheus/dashboards/prometheus_stats.json)
 - [Prometheus - Prometheus 2.0 Stats (imported from Datasource)](https://github.com/grafana/grafana/tree/master/public/app/plugins/datasource/prometheus/dashboards/prometheus_2_stats.json)
 - [Prometheus - Grafana Metrics (imported from Datasource)](https://github.com/grafana/grafana/blob/master/public/app/plugins/datasource/prometheus/dashboards/grafana_stats.json)
+
+## Viewable Metrics and Logs
+
+### Elasticsearch & Logstash
+Elasticsearch offers X-Pack statistics to monitor Elasticsearch and Logstash out-of-the-box. You simple need to enable it via elasticsearch.yml / logstash.yml config files. The statistics are written to special elasticsearch indices and datasources for those indices are already pre-provisioned when starting the stack.
+For additional Information please refer to the official documentation:
+[Elasticsearch Monitoring ](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-monitoring.html)
+
+[Logstash Monitoring](https://www.elastic.co/guide/en/logstash/current/configuring-logstash.html)
+
+### InfluxDB
+InflxuDB offers internal statistics as described in the official documentation:
+
+[InfluxDB Internal monitoring](https://docs.influxdata.com/influxdb/v1.6/administration/server_monitoring/#internal-monitoring)
+
+A datasource using this internal database is already pre-provisioned when starting the PLEI stack.
+
+### Prometheus
+Prometheus and Grafana expose /metrics endpoints which are scraped using jobs "prometheus" and "grafana". Moreover cAdvisor also exposes metrics which are scraped with a job "cAdvisor" although cAdvisor container is disabled by default, see [Note](#grafana-plei).
+
+The prometheus datasource is already pre-provisioned when starting the PLEI stack. The datasource also comes with dashboards, those are pre-provisioned as well. 
 
 ## Requirements
 
