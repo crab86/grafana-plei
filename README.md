@@ -39,7 +39,6 @@ Moreover the following Dashboards are also pre-provisioned to Grafana when start
 ### Dashboards with Prometheus as datasource:
 - [Prometheus  - Prometheus Stats (imported from Datasource)](https://github.com/grafana/grafana/tree/master/public/app/plugins/datasource/prometheus/dashboards/prometheus_stats.json)
 - [Prometheus - Prometheus 2.0 Stats (imported from Datasource)](https://github.com/grafana/grafana/tree/master/public/app/plugins/datasource/prometheus/dashboards/prometheus_2_stats.json)
-- [Prometheus - Grafana Internals (based on 3590)](https://grafana.com/dashboards/3590)
 - [Prometheus - Grafana Metrics (imported from Datasource)](https://github.com/grafana/grafana/blob/master/public/app/plugins/datasource/prometheus/dashboards/grafana_stats.json)
 
 ## Requirements
