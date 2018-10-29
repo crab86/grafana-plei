@@ -46,6 +46,7 @@ Moreover the following Dashboards are also pre-provisioned to Grafana when start
 ### Elasticsearch & Logstash
 Elasticsearch offers X-Pack statistics to monitor Elasticsearch and Logstash out-of-the-box. You simple need to enable it via elasticsearch.yml / logstash.yml config files. The statistics are written to special elasticsearch indices and datasources for those indices are already pre-provisioned when starting the stack.
 For additional Information please refer to the official documentation:
+
 [Elasticsearch Monitoring ](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-monitoring.html)
 
 [Logstash Monitoring](https://www.elastic.co/guide/en/logstash/current/configuring-logstash.html)
@@ -60,7 +61,7 @@ A datasource using this internal database is already pre-provisioned when starti
 ### Prometheus
 Prometheus and Grafana expose /metrics endpoints which are scraped using jobs "prometheus" and "grafana". Moreover cAdvisor also exposes metrics which are scraped with a job "cAdvisor" although cAdvisor container is disabled by default, see [Note](#grafana-plei).
 
-The prometheus datasource is already pre-provisioned when starting the PLEI stack. The datasource also comes with dashboards, those are pre-provisioned as well. 
+The prometheus datasource is already pre-provisioned when starting the PLEI stack. The datasource also comes with dashboards, those are pre-provisioned as well.
 
 ## Requirements
 
