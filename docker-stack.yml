@@ -61,6 +61,7 @@ services:
     volumes:
       - grafana_config_data:/etc/grafana/
       - grafana_data:/var/lib/grafana/
+      - grafana_dashboards:/var/lib/grafana/dashboards 
     ports:
       - "3000:3000"
     networks:
@@ -98,6 +99,7 @@ services:
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch/config
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
+      - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
 
 
 #  cadvisor:
