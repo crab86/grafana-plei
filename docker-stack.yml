@@ -98,7 +98,6 @@ services:
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch/config
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
-      - grafana_data:/data/git/repos/plei/grafana/var/lib/grafana
 
 
 #  cadvisor:
