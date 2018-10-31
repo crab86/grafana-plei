@@ -69,8 +69,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - grafana_config_data:/etc/grafana
-      - grafana_data:/var/lib/grafana
+      - grafana_config_data:/etc/grafana/
+      - grafana_data:/var/lib/grafana/
     ports:
       - "3000:3000"
     networks:
@@ -99,7 +99,7 @@ services:
     tty: true
     volumes:
       - prometheus_config_data:/data/git/repos/plei/prometheus
-      - grafana_config_data:/data/git/repos/plei/grafana
+      - grafana_config_data:/data/git/repos/plei/grafana/config
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
