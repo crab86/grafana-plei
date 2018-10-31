@@ -41,7 +41,7 @@ services:
     image: docker.elastic.co/logstash/logstash:6.4.0
     container_name: logstash
     volumes:
-      - logstash_config_data::/usr/share/logstash/config/
+      - logstash_config_data:/usr/share/logstash/config/
     ports:
       - "5140:5140/udp"
       - "9600:9600"
