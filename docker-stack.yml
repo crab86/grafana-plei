@@ -46,6 +46,12 @@ services:
     ports:
       - "5140:5140/udp"
       - "9600:9600"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
@@ -58,6 +64,12 @@ services:
       - influxdb_config_data:/etc/influxdb/
     ports:
       - "8086:8086"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
 #    environment:
 #      - INFLUXDB_DB=cadvisor
     networks:
@@ -73,6 +85,12 @@ services:
       - grafana_data:/var/lib/grafana/
     ports:
       - "3000:3000"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
     networks:
       - plei
     depends_on:
@@ -85,6 +103,12 @@ services:
       - prometheus_config_data:/etc/prometheus/
     ports:
       - "9090:9090"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
     networks:
       - plei
     depends_on:
@@ -103,7 +127,7 @@ services:
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
-      - grafana_data:/data/git/repos/plei/grafana/var/lib/
+      - grafana_data:/data/git/repos/plei/grafana/var/lib/grafana
 
 
 #  cadvisor:
