@@ -85,6 +85,9 @@ services:
       - prometheus_config_data:/etc/prometheus/
     ports:
       - "9090:9090"
+    links:
+      - logstash:logstash
+      - grafana:grafana
     logging:
       driver: syslog
       options:
