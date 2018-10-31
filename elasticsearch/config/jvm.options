@@ -1,2 +1,2 @@
 ---
-es.enforce.bootstrap.checks: false
+#es.enforce.bootstrap.checks: false
