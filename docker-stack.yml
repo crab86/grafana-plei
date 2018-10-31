@@ -1,10 +1,21 @@
-version: '3'
+version: '3.1'
+
+volumes:
+    grafana_config_data: {}
+    prometheus_config_data: {}
+    elasticsearch_config_data: {}
+    logstash_config_data: {}
+    influxdb_config_data: {}
+
+networks:
+  plei:
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
     container_name: elasticsearch
     volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - elasticsearch_config_data:/usr/share/elasticsearch/config/
     ports:
       - "9200:9200"
     environment:
@@ -30,8 +41,7 @@ services:
     image: docker.elastic.co/logstash/logstash:6.4.0
     container_name: logstash
     volumes:
-      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
-      - ./logstash/pipeline:/usr/share/logstash/pipeline
+      - logstash_config_data::/usr/share/logstash/config/
     ports:
       - "5140:5140/udp"
       - "9600:9600"
@@ -44,7 +54,7 @@ services:
     image: influxdb:latest
     container_name: influxdb
     volumes:
-      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+      - influxdb_config_data:/etc/influxdb/
     ports:
       - "8086:8086"
 #    environment:
@@ -71,13 +81,28 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_config_data:/etc/prometheus/
     ports:
       - "9090:9090"
     networks:
       - plei
     depends_on:
       - logstash
+
+  source:
+    image: containerize/git
+    environment:
+      - REPO_LOCAL=/data/git/repos/plei
+#      - REPO_BRANCH=version-2
+      - REPO_REMOTE=https://github.com/crab86/grafana-plei.git
+    tty: true
+    volumes:
+      - prometheus_config_data:/data/git/repos/plei/prometheus
+      - grafana_config_data:/data/git/repos/plei/grafana
+      - elasticsearch_config_data:/data/git/repos/plei/elasticsearch
+      - logstash_config_data:/data/git/repos/plei/logstash
+      - influxdb_config_data:/data/git/repos/plei/influxdb
+
 
 #  cadvisor:
 #    image: google/cadvisor:latest
@@ -103,6 +128,3 @@ services:
 #      - plei
 #    depends_on:
 #      - logstash
-
-networks:
-  plei:
