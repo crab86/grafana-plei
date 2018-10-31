@@ -72,12 +72,6 @@ services:
       - ./grafana/var/lib/grafana:/var/lib/grafana
     ports:
       - "3000:3000"
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "udp://logstash:5140"
-        syslog-format: "rfc3164"
-        tag: "{{.Name}}/{{.ID}}"
     networks:
       - plei
     depends_on:
