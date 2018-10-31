@@ -2,6 +2,7 @@ version: '3.1'
 
 volumes:
     grafana_config_data: {}
+    grafana_data: {}
     prometheus_config_data: {}
     elasticsearch_config_data: {}
     logstash_config_data: {}
@@ -68,8 +69,8 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     volumes:
-      - ./grafana/config:/etc/grafana
-      - ./grafana/var/lib/grafana:/var/lib/grafana
+      - grafana_config_data:/etc/grafana
+      - grafana_data:/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
@@ -102,6 +103,7 @@ services:
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
+      - grafana_data:/data/git/repos/plei/grafana/var/lib/
 
 
 #  cadvisor:
