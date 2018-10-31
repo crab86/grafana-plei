@@ -11,31 +11,31 @@ networks:
   plei:
 
 services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
-    container_name: elasticsearch
-    volumes:
-      - elasticsearch_config_data:/usr/share/elasticsearch/config/
-    ports:
-      - "9200:9200"
-    environment:
-      - cluster.name=docker-cluster
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "udp://logstash:5140"
-        syslog-format: "rfc3164"
-        tag: "{{.Name}}/{{.ID}}"
-    networks:
-      - plei
-    depends_on:
-      - logstash
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+#    container_name: elasticsearch
+#    volumes:
+#      - elasticsearch_config_data:/usr/share/elasticsearch/config/
+#    ports:
+#      - "9200:9200"
+#    environment:
+#      - cluster.name=docker-cluster
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    logging:
+#      driver: syslog
+#      options:
+#        syslog-address: "udp://logstash:5140"
+#        syslog-format: "rfc3164"
+#        tag: "{{.Name}}/{{.ID}}"
+#    networks:
+#      - plei
+#    depends_on:
+#      - logstash
 
   logstash:
     image: docker.elastic.co/logstash/logstash:6.4.0
@@ -72,6 +72,12 @@ services:
       - ./grafana/var/lib/grafana:/var/lib/grafana
     ports:
       - "3000:3000"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
     networks:
       - plei
     depends_on:
