@@ -27,7 +27,7 @@ Grafana comes pre-provisioned with the following datasources:
 Moreover the following Dashboards are also pre-provisioned to Grafana when starting the PLEI-stack:
 
 ### Dashboards with Elasticsearch as datasource:
-- Elasticsearch - Container Logs (**Note** All containers send their logs to Logstash via syslog driver. The logs can be viewed in this dashboard)
+- Elasticsearch - Container Logs (**Note**: All containers send their logs to Logstash via syslog driver. The logs can be viewed in this dashboard)
 - [Elasticsearch Monitoring based on X-Pack stats](https://grafana.com/dashboards/8642)
 - [Logstash Monitoring based on X-Pack stats - repeat by node](
   https://grafana.com/dashboards/8470)
@@ -44,19 +44,21 @@ Moreover the following Dashboards are also pre-provisioned to Grafana when start
 ## Viewable Metrics and Logs
 
 ### Elasticsearch & Logstash
-Elasticsearch offers X-Pack statistics to monitor Elasticsearch and Logstash out-of-the-box. You simple need to enable it via elasticsearch.yml / logstash.yml config files. The statistics are written to special elasticsearch indices and datasources for those indices are already pre-provisioned when starting the stack.
+Elasticsearch offers X-Pack statistics to monitor Elasticsearch and Logstash out-of-the-box. You simple need to enable it via elasticsearch.yml / logstash.yml config files. The statistics are written to special elasticsearch indices and datasources+dashboards for those indices are already pre-provisioned when starting the stack.
 For additional Information please refer to the official documentation:
 
 [Elasticsearch Monitoring ](https://www.elastic.co/guide/en/elasticsearch/reference/current/configuring-monitoring.html)
 
 [Logstash Monitoring](https://www.elastic.co/guide/en/logstash/current/configuring-logstash.html)
 
+In addition all used containers publish their logs to logstash's syslog input. All the logs can be viewed in a pre-provisioned dashboard aswell.
+
 ### InfluxDB
 InflxuDB offers internal statistics as described in the official documentation:
 
 [InfluxDB Internal monitoring](https://docs.influxdata.com/influxdb/v1.6/administration/server_monitoring/#internal-monitoring)
 
-A datasource using this internal database is already pre-provisioned when starting the PLEI stack.
+A datasource+dashboard using this internal database is already pre-provisioned when starting the PLEI stack.
 
 ### Prometheus
 Prometheus and Grafana expose /metrics endpoints which are scraped using jobs "prometheus" and "grafana". Moreover cAdvisor also exposes metrics which are scraped with a job "cAdvisor" although cAdvisor container is disabled by default, see [Note](#grafana-plei).
