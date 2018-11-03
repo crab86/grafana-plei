@@ -65,6 +65,12 @@ services:
       - grafana_dashboards:/var/lib/grafana/dashboards
     ports:
       - "3000:3000"
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://pwd_logstash:5140"
+        syslog-format: "rfc3164"
+        tag: "{{.Name}}/{{.ID}}"
     networks:
       - plei
     depends_on:
@@ -79,7 +85,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "udp://127.0.0.1:5140"
+        syslog-address: "udp://logstash:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
     networks:
