@@ -68,7 +68,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "udp://pwd_logstash:5140"
+        syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
     networks:
@@ -85,7 +85,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "udp://logstash:5140"
+        syslog-address: "udp://127.0.0.1:5140"
         syslog-format: "rfc3164"
         tag: "{{.Name}}/{{.ID}}"
     networks:
