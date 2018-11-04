@@ -2,7 +2,7 @@ version: '3.1'
 
 volumes:
     grafana_config_data: {}
-    grafana_data: {}
+#    grafana_data: {}
     prometheus_config_data: {}
     elasticsearch_config_data: {}
     logstash_config_data: {}
@@ -59,10 +59,10 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-    user: "0"
+#    user: "0"
     volumes:
       - grafana_config_data:/etc/grafana/
-      - grafana_data:/var/lib/grafana/
+#      - grafana_data:/var/lib/grafana/
       - grafana_dashboards:/var/lib/grafana/dashboards
     ports:
       - "3000:3000"
