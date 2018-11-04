@@ -7,7 +7,7 @@ volumes:
     elasticsearch_config_data: {}
     logstash_config_data: {}
     influxdb_config_data: {}
-#    grafana_dashboards: {}
+    grafana_dashboards: {}
 
 networks:
   plei:
@@ -62,7 +62,7 @@ services:
     volumes:
       - grafana_config_data:/etc/grafana/
       - grafana_data:/var/lib/grafana/
-#      - grafana_dashboards:/var/lib/grafana/dashboards
+      - grafana_dashboards:/var/lib/grafana/dashboards
 #    environment:
 #      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
 #      - GF_LOG_LEVEL=debug
@@ -72,8 +72,6 @@ services:
       - "3000:3000"
     networks:
       - plei
-    depends_on:
-      - logstash
 
   prometheus:
     image: prom/prometheus:latest
@@ -105,4 +103,4 @@ services:
       - elasticsearch_config_data:/data/git/repos/plei/elasticsearch/config
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
-#      - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
+      - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
