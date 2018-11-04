@@ -64,6 +64,11 @@ services:
       - grafana_config_data:/etc/grafana/
       - grafana_data:/var/lib/grafana/
       - grafana_dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+      - GF_LOG_LEVEL=debug
+      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
+      - GF_PATHS_DATA=/var/lib/grafana
     ports:
       - "3000:3000"
     networks:
