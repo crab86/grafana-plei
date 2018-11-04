@@ -97,7 +97,7 @@ services:
     image: containerize/git
     environment:
       - REPO_LOCAL=/data/git/repos/plei
-#      - REPO_BRANCH=version-2
+      - REPO_BRANCH=PWD
       - REPO_REMOTE=https://github.com/crab86/grafana-plei.git
     tty: true
     volumes:
@@ -107,6 +107,7 @@ services:
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
       - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
+      - grafana_data:/data/git/repos/plei/grafana/var/lib/grafana
 
 
 #  cadvisor:
