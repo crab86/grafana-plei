@@ -59,6 +59,7 @@ services:
 
   grafana:
     image: grafana/grafana:latest
+    user: "0"
     volumes:
       - grafana_config_data:/etc/grafana/
       - grafana_data:/var/lib/grafana/
@@ -107,8 +108,6 @@ services:
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
       - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
-      - grafana_data:/data/git/repos/plei/grafana/var/lib/grafana
-
 
 #  cadvisor:
 #    image: google/cadvisor:latest
