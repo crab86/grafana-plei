@@ -59,7 +59,6 @@ services:
 
   grafana:
     image: grafana/grafana:latest
-#    user: "0"
     volumes:
       - grafana_config_data:/etc/grafana/
       - grafana_data:/var/lib/grafana/
@@ -107,28 +106,3 @@ services:
       - logstash_config_data:/data/git/repos/plei/logstash
       - influxdb_config_data:/data/git/repos/plei/influxdb
       - grafana_dashboards:/data/git/repos/plei/grafana/var/lib/grafana/dashboards
-
-#  cadvisor:
-#    image: google/cadvisor:latest
-#    container_name: cadvisor
-#    volumes:
-#      - /:/rootfs:ro
-#      - /var/run:/var/run:rw
-#      - /sys:/sys:ro
-#      - /var/lib/docker/:/var/lib/docker:ro
-#    command:
-#      - "-storage_driver=influxdb"
-#      - "-storage_driver_host=influxdb:8086"
-#    ports:
-#      - "8080:8080"
-#    logging:
-#      driver: syslog
-#      options:
-#        syslog-address: "udp://127.0.0.1:5140"
-#        syslog-format: "rfc3164"
-#        tag: "{{.Name}}/{{.ID}}"
-#        mode: "non-blocking"
-#    networks:
-#      - plei
-#    depends_on:
-#      - logstash
