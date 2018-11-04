@@ -67,9 +67,10 @@ services:
 #      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
 #      - GF_LOG_LEVEL=debug
 #      - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
-#      - GF_PATHS_DATA=/var/lib/grafana
+      - GF_PATHS_DATA=""
     ports:
       - "3000:3000"
+    restart: always
     networks:
       - plei
 
